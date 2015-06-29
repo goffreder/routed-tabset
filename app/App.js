@@ -1,11 +1,11 @@
-class Test extends React.Component {
-    render() {
-        console.log('Test');
+import 'normalize-css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-        return (
-            <div>It works!</div>
-        );
-    }
-}
+import Router from 'react-router';
+import AppRoutes from './config/routes';
 
-React.render(<Test/>, document.getElementById('app'));
+Router.create({
+    routes: AppRoutes
+}).run((Handler) => {
+    React.render(<Handler/>, document.body);
+});

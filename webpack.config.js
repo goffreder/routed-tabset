@@ -6,7 +6,7 @@ var version = require('./package.json').version;
 module.exports = {
     devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : null,
 
-    entry: "./app/App.js",
+    entry: './app/App.js',
 
     output: {
         path: '__build__',
@@ -16,13 +16,13 @@ module.exports = {
 
     module: {
         preLoaders: [{
-            test: /\.js$/,
+            test: /\.jsx?$/,
             loader: 'eslint-loader'
         }],
         loaders: [{
-            test: /\.js[x]$/,
+            test: /\.jsx?$/,
             exclude: /node_modules[\/\\]/,
-            loader: 'babel-loader?optional[]=es7.decorators'
+            loader: 'babel-loader?optional[]=es7.decorators&optional[]=es7.classProperties'
         }, {
             test: /\.css$/,
             loader: 'style!css'
@@ -46,7 +46,11 @@ module.exports = {
             }
         }),
         new webpack.ProvidePlugin({
-            React: "react/addons"
+            React: 'react/addons'
         })
-    ]
+    ],
+
+    resolve: {
+        extensions: ['', '.js', '.jsx']
+    }
 };
