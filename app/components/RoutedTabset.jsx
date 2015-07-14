@@ -1,8 +1,10 @@
 import { TabbedArea, TabPane } from 'react-bootstrap';
 
 import NavigationDecorator from '../utils/NavigationDecorator';
+import RouterStateDecorator from '../utils/RouterStateDecorator';
 
 @NavigationDecorator
+@RouterStateDecorator
 export default class RoutedTabset extends React.Component {
     static propTypes = {
         tabs: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -17,27 +19,26 @@ export default class RoutedTabset extends React.Component {
     constructor() {
         super();
 
-        this.state = {
-            key: 0
-        };
-
         this.handleSelect = this.handleSelect.bind(this);
     }
 
     handleSelect(key) {
         this.transitionTo(this.props.tabs[key].route);
-        this.setState({
-            key
-        });
     }
 
     render() {
+        let activeKey;
+
         const tabs = this.props.tabs.map((tab, index) => {
+            if (this.getPath() === `/${tab.route}`) {
+                activeKey = index;
+            }
+
             return <TabPane key={index} eventKey={index} tab={tab.label} />;
         });
 
         return (
-            <TabbedArea activeKey={this.state.key} onSelect={this.handleSelect}>
+            <TabbedArea activeKey={activeKey} onSelect={this.handleSelect}>
                 {tabs}
             </TabbedArea>
         );
