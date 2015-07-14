@@ -10,7 +10,8 @@ export default class RoutedTabset extends React.Component {
         tabs: React.PropTypes.arrayOf(React.PropTypes.shape({
             label: React.PropTypes.string.isRequired,
             route: React.PropTypes.string.isRequired
-        })).isRequired
+        })).isRequired,
+        defaultRoute: React.PropTypes.string
     };
     static contextTypes = {
         router: React.PropTypes.func
@@ -20,6 +21,12 @@ export default class RoutedTabset extends React.Component {
         super();
 
         this.handleSelect = this.handleSelect.bind(this);
+    }
+
+    componentWillMount() {
+        if (this.props.defaultRoute) {
+            this.transitionTo(this.props.defaultRoute);
+        }
     }
 
     handleSelect(key) {

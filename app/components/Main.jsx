@@ -17,7 +17,7 @@ export default class Main extends React.Component {
 
         return (
             <div>
-                <RoutedTabset tabs={tabs} />
+                <RoutedTabset tabs={tabs} defaultRoute="about" />
                 <RouteHandler />
             </div>
         );
